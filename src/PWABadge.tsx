@@ -1,10 +1,8 @@
-import type { Component } from 'solid-js'
-import { Show } from 'solid-js'
-import { useRegisterSW } from 'virtual:pwa-register/solid'
+import './PWABadge.css'
 
-import styles from './PWABadge.module.css'
+import { useRegisterSW } from 'virtual:pwa-register/react'
 
-const PWABadge: Component = () => {
+function PWABadge() {
   // check for updates every hour
   const period = 60 * 60 * 1000
 
@@ -34,18 +32,21 @@ const PWABadge: Component = () => {
   }
 
   return (
-    <div class={styles.Container} role="alert" aria-labelledby="toast-message">
-      <Show when={needRefresh()}>
-        <div class={styles.Toast}>
-          <div class={styles.Message}>
+    <div className="PWABadge" role="alert" aria-labelledby="toast-message">
+      { (needRefresh)
+      && (
+        <div className="PWABadge-toast">
+          <div className="PWABadge-message">
             <span id="toast-message">New content available, click on reload button to update.</span>
+              
+              
           </div>
-          <div>
-            <button class={styles.ToastButton} onClick={() => updateServiceWorker()}>Reload</button>
-            <button class={styles.ToastButton} onClick={() => close()}>Close</button>
+          <div className="PWABadge-buttons">
+            <button className="PWABadge-toast-button" onClick={() => updateServiceWorker(true)}>Reload</button>
+            <button className="PWABadge-toast-button" onClick={() => close()}>Close</button>
           </div>
         </div>
-      </Show>
+      )}
     </div>
   )
 }
