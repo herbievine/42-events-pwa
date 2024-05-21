@@ -15,7 +15,7 @@ export const callbackRoute = createRoute({
 		const url = new URL('https://api.intra.42.fr/oauth/token');
 
 		url.searchParams.append('grant_type', 'authorization_code');
-		url.searchParams.append('client_id', 'u-s4t2ud-c3b90812c1740bdc741f77a68fc18970df6cf75c495f768b54abca4c2cc133ad');
+		url.searchParams.append('client_id', import.meta.env.VITE_FORTY_TWO_API_CLIENT);
 		url.searchParams.append('client_secret', import.meta.env.VITE_FORTY_TWO_API_SECRET);
 		url.searchParams.append('code', code);
 		url.searchParams.append('redirect_uri', `${import.meta.env.VITE_BASE_URL}/auth/callback`);

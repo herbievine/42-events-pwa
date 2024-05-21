@@ -20,7 +20,7 @@ function LoginPage() {
 
 		const state = Math.random().toString(36).substring(7);
 
-		url.searchParams.append('client_id', 'u-s4t2ud-c3b90812c1740bdc741f77a68fc18970df6cf75c495f768b54abca4c2cc133ad');
+		url.searchParams.append('client_id', import.meta.env.VITE_FORTY_TWO_API_CLIENT);
 		url.searchParams.append('redirect_uri', `${import.meta.env.VITE_BASE_URL}/auth/callback`);
 		url.searchParams.append('scope', 'public');
 		url.searchParams.append('state', state);
