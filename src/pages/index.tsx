@@ -25,7 +25,17 @@ function IndexPage() {
 
   return (
     <div className="flex flex-col space-y-6">
+			<div className="p-2 flex justify-between items-center">
 			<h1>events for {user.campus[0].name}</h1>
+			<button
+				onClick={() => {
+					localStorage.removeItem('token')
+					window.location.reload()
+				}}
+			>
+				logout
+			</button>
+			</div>
 			{events && events.length > 0 && (
 				<div className="mx-auto w-full max-w-3xl flex flex-col space-y-4">
 					{events
