@@ -10,12 +10,10 @@ export const indexRoute = createRoute({
 });
 
 function IndexPage() {
-	const { user, isLoading } = useUser()
+	const { user } = useUser()
 	const { events } = useEvents()
 
-	if (isLoading) {
-		return <div>Loading user...</div>
-	} else if (!user) {
+	if (!user) {
 		return (
 			<div>Not logged in
 				<a href="/login">login</a>

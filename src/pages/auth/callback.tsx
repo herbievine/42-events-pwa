@@ -12,13 +12,9 @@ export const callbackRoute = createRoute({
 			throw new Error('No code found')
 		}
 
-		const url = new URL('https://api.intra.42.fr/oauth/token');
+		const url = new URL(`${import.meta.env.VITE_API_URL}/auth/token`);
 
-		url.searchParams.append('grant_type', 'authorization_code');
-		url.searchParams.append('client_id', import.meta.env.VITE_FORTY_TWO_API_CLIENT);
-		url.searchParams.append('client_secret', import.meta.env.VITE_FORTY_TWO_API_SECRET);
 		url.searchParams.append('code', code);
-		url.searchParams.append('redirect_uri', `${import.meta.env.VITE_BASE_URL}/auth/callback`);
 		url.searchParams.append('state', state!);
 
 		const res = await fetch(url.href, {
@@ -33,7 +29,7 @@ export const callbackRoute = createRoute({
 
 		localStorage.setItem('token', data.access_token)
 
-		redirect({
+		throw redirect({
 			to: '/',
 		});
 	},
