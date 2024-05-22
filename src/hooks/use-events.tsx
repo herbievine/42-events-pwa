@@ -1,9 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { useUser } from "./use-user";
 
 export function useEvents() {
-	const { user } = useUser()
-
 	const { data, isLoading } = useQuery({
 		queryKey: ['events'],
 		queryFn: async () => {
@@ -11,13 +8,9 @@ export function useEvents() {
 	
 			if (!token) {
 				throw new Error('No token found')
-			} else if (!user) {
-				throw new Error('No user found')
 			}
-
-			const campusId = user.campus[0].id;
-	
-			const res = await fetch(`https://api.intra.42.fr/v2/campus/${campusId}/events`, {
+			
+			const res = await fetch(`${import.meta.env.VITE_API_URL}/events`, {
 				headers: {
 					'Authorization': `Bearer ${token}`
 				}

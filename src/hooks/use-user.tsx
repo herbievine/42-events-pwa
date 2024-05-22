@@ -10,7 +10,7 @@ export function useUser() {
 				throw new Error('No token found')
 			}
 	
-			const res = await fetch('https://api.intra.42.fr/v2/me', {
+			const res = await fetch(`${import.meta.env.VITE_API_URL}/me`, {
 				headers: {
 					'Authorization': `Bearer ${token}`
 				}
