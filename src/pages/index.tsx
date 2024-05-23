@@ -49,7 +49,7 @@ function IndexPage() {
 		from: "/"
 	})
 
-	const { data: events, isLoading } = useQuery({
+	const { data: events } = useQuery({
 		queryKey: ["events"],
 		queryFn: async () => {
 			const token = localStorage.getItem("token");
