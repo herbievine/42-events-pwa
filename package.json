@@ -14,8 +14,12 @@
     "@tanstack/react-query": "^5.37.1",
     "@tanstack/react-router": "^1.33.6",
     "@tasoskakour/react-use-oauth2": "^2.0.1",
+    "clsx": "^2.1.1",
+    "dayjs": "^1.11.11",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "tailwind-merge": "^2.3.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/react": "^18.3.1",
