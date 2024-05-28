@@ -7,11 +7,10 @@ import {
 import { rootRoute } from "./__root";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { cn } from "../lib/cn";
+import { useQuery } from "@tanstack/react-query";
 import { fetcher } from "../lib/fetcher";
 import { z } from "zod";
-import { eventSchema, type Event } from "../schema/event";
+import { eventSchemaWithRead } from "../schema/event";
 import { userSchema } from "../schema/user";
 import { Loading } from "../components/loading";
 import { Sort } from "../components/events/sort";
@@ -21,10 +20,6 @@ dayjs.extend(relativeTime);
 
 const searchParamsSchema = z.object({
   sort: z.enum(["created_at", "begin_at"]).catch("created_at"),
-});
-
-const eventSchemaWithRead = eventSchema.extend({
-  has_read: z.boolean(),
 });
 
 export const indexRoute = createRoute({
