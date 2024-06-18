@@ -1,13 +1,10 @@
-import { createRoute, useParams, useSearch } from "@tanstack/react-router";
+import { createRoute, useParams } from "@tanstack/react-router";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useQuery } from "@tanstack/react-query";
 import { fetcher } from "../../lib/fetcher";
-import { z } from "zod";
 import { eventSchema } from "../../schema/event";
 import { Loading } from "../../components/loading";
-import { Sort } from "../../components/events/sort";
-import { Card } from "../../components/events/card";
 import { feedLayout } from "./_layout";
 
 dayjs.extend(relativeTime);

@@ -6,8 +6,6 @@ import { cn } from "../../lib/cn";
 import { fetcher } from "../../lib/fetcher";
 import { type EventWithRead } from "../../schema/event";
 import { trim } from "../../lib/text";
-import { EyeIcon } from "../../assets/eye";
-import { EyeSlashIcon } from "../../assets/eye-slash";
 
 type CardProps = {
   event: EventWithRead;
@@ -75,16 +73,16 @@ export function Card({ event, classname }: CardProps) {
     },
   });
 
-  function when() {
-    const begin = dayjs(event.begin_at);
-    const end = dayjs(event.end_at);
+  // function when() {
+  //   const begin = dayjs(event.begin_at);
+  //   const end = dayjs(event.end_at);
 
-    if (begin.isSame(end, "day")) {
-      return `${begin.format("DD/MM/YYYY HH:mm")} - ${end.format("HH:mm")}`;
-    }
+  //   if (begin.isSame(end, "day")) {
+  //     return `${begin.format("DD/MM/YYYY HH:mm")} - ${end.format("HH:mm")}`;
+  //   }
 
-    return `${begin.format("DD/MM/YYYY")} - ${end.format("DD/MM/YYYY")}`;
-  }
+  //   return `${begin.format("DD/MM/YYYY")} - ${end.format("DD/MM/YYYY")}`;
+  // }
 
   return (
     <Link

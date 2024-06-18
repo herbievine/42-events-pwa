@@ -15,7 +15,7 @@ const options = [
 
 export function Sort() {
   const search = useSearch({
-    from: "/feed",
+    from: "/feed/",
   });
 
   return (
