@@ -32,7 +32,7 @@ export const callbackRoute = createRoute({
     localStorage.setItem("token", jwt);
 
     throw redirect({
-      to: "/",
+      to: "/feed",
       search: {
         sort: "created_at",
       },

@@ -1,10 +1,13 @@
 import { useQueryClient, useMutation } from "@tanstack/react-query";
-import { useSearch } from "@tanstack/react-router";
+import { Link, useSearch } from "@tanstack/react-router";
 import dayjs from "dayjs";
 import { z } from "zod";
 import { cn } from "../../lib/cn";
 import { fetcher } from "../../lib/fetcher";
 import { type EventWithRead } from "../../schema/event";
+import { trim } from "../../lib/text";
+import { EyeIcon } from "../../assets/eye";
+import { EyeSlashIcon } from "../../assets/eye-slash";
 
 type CardProps = {
   event: EventWithRead;
@@ -13,7 +16,7 @@ type CardProps = {
 
 export function Card({ event, classname }: CardProps) {
   const search = useSearch({
-    from: "/",
+    from: "/feed/",
   });
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
@@ -84,28 +87,51 @@ export function Card({ event, classname }: CardProps) {
   }
 
   return (
-    <div
-      className={cn(
-        "flex flex-col divide-y rounded-md border divide-teal-500 border-teal-500",
-        event.type === "association" && "divide-blue-500 border-blue-500",
-        event.type === "extern" && "divide-neutral-500 border-neutral-500",
-        event.type === "hackathon" && "divide-green-500 border-green-500",
-        event.type === "pedago" && "divide-red-500 border-red-500",
-        classname
-      )}
+    <Link
+      to="/feed/$eventId"
+      params={{
+        eventId: event.event_id + "",
+      }}
+      className={cn("flex flex-col", classname)}
     >
-      <div className="p-4 flex flex-col space-y-2">
-        <div className="flex justify-between items-center">
-          <h2 className="font-semibold">{event.name}</h2>
-          <span className="text-xs font-semibold text-neutral-700 whitespace-nowrap">
-            {search.sort === "created_at"
-              ? `Added ${dayjs(event.created_at).fromNow()}`
-              : `Starting ${dayjs(event.begin_at).fromNow()}`}
-          </span>
+      <div className="flex flex-col space-y-2">
+        <div className="flex items-center">
+          <div className="w-full flex justify-between items-center">
+            <span className="font-semibold w-1/2">{event.name}</span>
+            {/* <span className="text-neutral-500"> - </span> */}
+            <div className="flex items-center space-x-2">
+              <span className="text-xs font-semibold whitespace-nowrap text-neutral-500">
+                {search.sort === "created_at"
+                  ? `${dayjs(event.created_at).fromNow()}`
+                  : `${dayjs(event.begin_at).fromNow()}`}
+              </span>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+
+                  mutate();
+                }}
+                className="w-full px-3 py-1 flex items-center justify-start space-x-2 rounded-md border border-neutral-300 hover:border-neutral-400 transition-colors duration-300 whitespace-nowrap"
+              >
+                <span className="font-semibold text-sm text-neutral-700">
+                  {event.has_read ? "Unarchive" : "Archive"}
+                </span>
+                {/* {event.has_read ? (
+                  <EyeSlashIcon className="w-4 h-4 fill-neutral-700" />
+                ) : (
+                  <EyeIcon className="w-4 h-4 fill-neutral-700" />
+                )} */}
+              </button>
+            </div>
+          </div>
         </div>
-        <p className="text-sm line-clamp-3">{event.description}</p>
+        <p className="text-sm line-clamp-4 whitespace-pre-wrap">
+          {trim(event.description).join("\n")}
+        </p>
       </div>
-      <div className="p-4 flex flex-col space-y-2">
+      {/* <div className="flex flex-col space-y-2">
         {event.location && (
           <span className="text-sm text-neutral-700">
             Where: {event.location}
@@ -116,38 +142,38 @@ export function Card({ event, classname }: CardProps) {
           Participants: {event.attendees}
           {event.max_attendees ? ` / ${event.max_attendees}` : ""}
         </span>
-      </div>
-      {search.sort === "created_at" && (
+      </div> */}
+      {/* {search.sort === "created_at" && (
         <div
           className={cn(
-            "p-2 grid space-x-2",
+            "p-1 flex justify-between items-center",
             search.sort === "created_at" ? "grid-cols-2" : "grid-cols-1"
           )}
         >
           <button
             type="button"
             onClick={() => mutate()}
-            className="px-2 py-1 text-sm text-neutral-700 border border-inherit rounded-md"
+            className="flex-1 px-2 py-1 text-sm text-neutral-700 hover:bg-neutral-100 rounded-md"
           >
             {event.has_read ? "Mark as unread" : "Mark as read"}
           </button>
-          {/* <button
+          <button
           type="button"
-          className="px-2 py-1 text-sm text-neutral-700 border border-inherit rounded-md"
+          className="flex-1 px-2 py-1 text-sm text-neutral-700 hover:bg-neutral-50"
         >
           Add to calendar
-        </button> */}
+        </button>
           {search.sort === "created_at" && (
             <button
               disabled
               type="button"
-              className="px-2 py-1 text-sm text-neutral-700 border border-inherit rounded-md"
+              className="flex-1 px-2 py-1 text-sm text-neutral-700 hover:bg-neutral-100 rounded-md"
             >
               Subscribe
             </button>
           )}
         </div>
-      )}
-    </div>
+      )} */}
+    </Link>
   );
 }
