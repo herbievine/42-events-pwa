@@ -1,4 +1,10 @@
-import { Menu, Transition } from "@headlessui/react";
+import {
+  Menu,
+  MenuButton,
+  MenuItems,
+  MenuItem,
+  Transition,
+} from "@headlessui/react";
 import { Link, useSearch } from "@tanstack/react-router";
 import { FilterIcon } from "../../assets/filter";
 
@@ -20,12 +26,12 @@ export function Sort() {
 
   return (
     <Menu as="div" className="relative">
-      <Menu.Button className="w-full px-3 py-1 flex items-center justify-start space-x-2 rounded-md border border-neutral-300 hover:border-neutral-400 transition-colors duration-300">
+      <MenuButton className="w-full px-3 py-1 flex items-center justify-start space-x-2 rounded-md border border-neutral-300 hover:border-neutral-400 transition-colors duration-300">
         <span className="font-semibold text-sm text-neutral-700">
           {options.find((option) => option.value === search.sort)?.label}
         </span>
         <FilterIcon className="w-4 h-4 fill-neutral-700" />
-      </Menu.Button>
+      </MenuButton>
       <Transition
         enter="transition duration-100 ease-out"
         enterFrom="transform scale-95 opacity-0"
@@ -34,12 +40,12 @@ export function Sort() {
         leaveFrom="transform scale-100 opacity-100"
         leaveTo="transform scale-95 opacity-0"
       >
-        <Menu.Items className="z-10 absolute px-1 mt-1 right-0 origin-top-right w-48 rounded-md bg-white border border-neutral-300 divide-y divide-neutral-300 shadow-lg">
+        <MenuItems className="z-10 absolute px-1 mt-1 right-0 origin-top-right w-48 rounded-md bg-white border border-neutral-300 divide-y divide-neutral-300 shadow-lg">
           {options.map(({ label, value }) => (
-            <Menu.Item
+            <MenuItem
               key={value}
               as={Link}
-              to={"/"}
+              to={"/feed/"}
               search={{
                 sort: value,
               }}
@@ -50,9 +56,9 @@ export function Sort() {
                   {label}
                 </span>
               </div>
-            </Menu.Item>
+            </MenuItem>
           ))}
-        </Menu.Items>
+        </MenuItems>
       </Transition>
     </Menu>
   );

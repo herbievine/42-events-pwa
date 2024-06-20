@@ -52,7 +52,7 @@ export function Card({ event, classname }: CardProps) {
         if (notification.event_id === event.event_id) {
           return {
             ...notification,
-            has_read: true,
+            has_read: notification.has_read ? false : true,
           };
         }
 
@@ -72,17 +72,6 @@ export function Card({ event, classname }: CardProps) {
       });
     },
   });
-
-  // function when() {
-  //   const begin = dayjs(event.begin_at);
-  //   const end = dayjs(event.end_at);
-
-  //   if (begin.isSame(end, "day")) {
-  //     return `${begin.format("DD/MM/YYYY HH:mm")} - ${end.format("HH:mm")}`;
-  //   }
-
-  //   return `${begin.format("DD/MM/YYYY")} - ${end.format("DD/MM/YYYY")}`;
-  // }
 
   return (
     <Link
@@ -116,11 +105,6 @@ export function Card({ event, classname }: CardProps) {
                 <span className="font-semibold text-sm text-neutral-700">
                   {event.has_read ? "Unarchive" : "Archive"}
                 </span>
-                {/* {event.has_read ? (
-                  <EyeSlashIcon className="w-4 h-4 fill-neutral-700" />
-                ) : (
-                  <EyeIcon className="w-4 h-4 fill-neutral-700" />
-                )} */}
               </button>
             </div>
           </div>
@@ -129,49 +113,6 @@ export function Card({ event, classname }: CardProps) {
           {trim(event.description).join("\n")}
         </p>
       </div>
-      {/* <div className="flex flex-col space-y-2">
-        {event.location && (
-          <span className="text-sm text-neutral-700">
-            Where: {event.location}
-          </span>
-        )}
-        <span className="text-sm text-neutral-700">When: {when()}</span>
-        <span className="text-sm text-neutral-700">
-          Participants: {event.attendees}
-          {event.max_attendees ? ` / ${event.max_attendees}` : ""}
-        </span>
-      </div> */}
-      {/* {search.sort === "created_at" && (
-        <div
-          className={cn(
-            "p-1 flex justify-between items-center",
-            search.sort === "created_at" ? "grid-cols-2" : "grid-cols-1"
-          )}
-        >
-          <button
-            type="button"
-            onClick={() => mutate()}
-            className="flex-1 px-2 py-1 text-sm text-neutral-700 hover:bg-neutral-100 rounded-md"
-          >
-            {event.has_read ? "Mark as unread" : "Mark as read"}
-          </button>
-          <button
-          type="button"
-          className="flex-1 px-2 py-1 text-sm text-neutral-700 hover:bg-neutral-50"
-        >
-          Add to calendar
-        </button>
-          {search.sort === "created_at" && (
-            <button
-              disabled
-              type="button"
-              className="flex-1 px-2 py-1 text-sm text-neutral-700 hover:bg-neutral-100 rounded-md"
-            >
-              Subscribe
-            </button>
-          )}
-        </div>
-      )} */}
     </Link>
   );
 }

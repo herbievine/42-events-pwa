@@ -52,7 +52,7 @@ function FeedPage() {
 
   if (!isLoading && events && events.length >= 0) {
     return (
-      <div className="mx-auto w-full max-w-5xl flex flex-col">
+      <div className="flex flex-col">
         <div className="py-2 px-4 flex justify-between items-center border-b border-neutral-300">
           <h2 className="font-semibold text-sm text-neutral-700">
             {search.sort === "created_at" ? "New events" : "Upcoming events"} (
